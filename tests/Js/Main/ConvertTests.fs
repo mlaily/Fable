@@ -988,7 +988,7 @@ let tests =
 
     testCase "byte.ToString 'P' works"
     <| fun () ->
-        (255uy).ToString("P2")
+        (255uy).ToString("P2", CultureInfo.InvariantCulture)
         // In .NET byte seems to not have a space before the % sign
         |> fun str -> str.Replace(" %", "%")
         |> equal "25,500.00%"
