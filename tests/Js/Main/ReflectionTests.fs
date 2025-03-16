@@ -556,6 +556,12 @@ let reflectionTests = [
     builtUnion = unionCase1 |> equal true
     builtUnion = SingleCaseUnion("c", "d") |> equal false
 
+  testCase "FSharp.Reflection: Option" <| fun () ->
+    let typ = typeof<Option<string>>
+    let ucis = FSharpType.GetUnionCases typ
+    FSharpValue.MakeUnion(ucis.[0], [||]) |> equal (box (Option<string>.None))
+    FSharpValue.MakeUnion(ucis.[1], [| box "foo"|]) |> equal (box (Option<string>.Some "foo"))
+
   testCase "FSharp.Reflection: Result" <| fun () ->
     let typ = typeof<Result<int,string>>
     let ucis = FSharpType.GetUnionCases typ
